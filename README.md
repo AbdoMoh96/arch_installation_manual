@@ -19,24 +19,24 @@ for UEFI check run :
  ls /sys/firmware/efi
 ```
 
-<br/>
-<br/>
+<br />
+<br />
 
 ## check internet connection 
 ```
 ping www.google.com
 ```
 
-<br/>
-<br/>
+<br />
+<br />
 
 ## Update the system clock 
 ```
  timedatectl set-ntp true
 ```
 
-<br/>
-<br/>
+<br />
+<br />
 
 # setting up the disks
 
@@ -46,8 +46,8 @@ ping www.google.com
 fdisk -l
 ```
 
-<br/>
-<br/>
+<br />
+<br />
 
 ## run cfdisk to partition your disk
 
@@ -330,7 +330,7 @@ mkdir /boot/EFI
 ```
 THEN mount EFI partition to it
 ```
-mount /dev/<driv-name><EFI-partition-number> /boot/EFI
+mount /dev/<drive-name><EFI-partition-number> /boot/EFI
 example :: mount /dev/sda1 /boot/EFI
 ```
 
@@ -369,6 +369,130 @@ For VM RUN ::
 shutdown now
 ```
 then remove the arch iso
+
+<br />
+<br />
+<br />
+<br />
+
+# Post Install
+
+<br />
+
+## getting internet connection
+starting network manager
+```
+systemctl start NetworkManager
+```
+enabling network manager (to auto run on startup)
+```
+systemctl enable NetworkManager.service
+```
+THEN  check && update
+```
+ping google.com
+pacman -Syu
+```
+<br />
+
+## installing NeoFetch (to view you system info, up to you)
+```
+pacman -S neofetch
+```
+
+<br />
+<br />
+
+# installing Drivers
+
+## installing the Graphics driver (Intel , Nvidia , AMD)
+
+Intel
+
+(for vm => Graphics Controller = VBoxSVGA)
+```
+pacman -S xf86-video-intel 
+```
+
+Nvidia
+```
+```
+
+AMD
+```
+```
+
+<br />
+
+## for Hybrid ( Intel , Nvidia ) Systems :: 
+```
+```
+
+
+<br />
+<br />
+
+# installing (KDE) desktop enviroment (up to you)
+
+<br />
+
+
+## installing the Display Server
+```
+pacman -S xorg
+```
+
+<br />
+
+## installing the display manager
+```
+pacman -S sddm
+```
+THEN RUN :: 
+```
+systemctl enable sddm.service
+```
+
+<br />
+
+## installing (Kde) Desktop
+```
+pacman -S plasma plasma-wayland-session kde-applications 
+```
+installing fonts :: 
+```
+pacman -S ttf-freefont ttf-arphic-uming ttf-baekmuk
+```
+some Applications (up to you)
+```
+pacman -S firefox vim
+```
+
+<br />
+
+## changing login screen theme
+RUN : 
+```
+sudo nano /usr/lib/sddm/sddm.conf.d/default.conf
+```
+THEN update Theme to breeze ::
+```
+[Theme]
+# current theme name
+ Current=breeze
+```
+
+## for (virtual box) only run 
+```
+pacman -S virtualbox-guest-utils
+systemctl enable vboxservice.service
+``` 
+<br />
+
+Reboot
+
+
+
 
 <br />
 <br />
