@@ -375,29 +375,39 @@ then remove the arch iso
 <br />
 <br />
 
-# Post Install
+# Post Install (don't login as root)
 
 <br />
 
 ## getting internet connection
 starting network manager
 ```
-systemctl start NetworkManager
+sudo systemctl start NetworkManager
 ```
 enabling network manager (to auto run on startup)
 ```
-systemctl enable NetworkManager.service
+sudo systemctl enable NetworkManager.service
 ```
 THEN  check && update
 ```
 ping google.com
-pacman -Syu
+sudo pacman -Syu
 ```
 <br />
 
+## install yay (AUR package manager)
+```
+sudo pacman -S git
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+cd ../
+sudo rm -r yay
+```
+
 ## installing NeoFetch (to view you system info, up to you)
 ```
-pacman -S neofetch
+sudo pacman -S neofetch
 ```
 
 <br />
@@ -411,24 +421,45 @@ Intel
 
 (for vm => Graphics Controller = VBoxSVGA)
 ```
-pacman -S xf86-video-intel 
+sudo pacman -S xf86-video-intel 
 ```
+for (pc or laptop)
+```
+sudo pacman -S mesa vulkan-intel intel-media-driver
+```
+<br />
 
 Nvidia
 ```
-```
-
-AMD
-```
+sudo pacman -S nvidia nvidia-vulkan nvidia-utils nvidia-settings
 ```
 
 <br />
 
-## for Hybrid ( Intel , Nvidia ) Systems :: 
+AMD
 ```
+ sudo pacman -S xf86-video-amdgpu vulkan-radeon
+```
+
+<br />
+
+## for Hybrid ( Intel , Nvidia ) Systems only :: 
+<br />
+
+first install both ( Intel , Nvidia ) drivers <br />
+THEN install Optimus
+```
+yay -S optimus-manager-qt
+```
+TO check if optimus manager is running (after desktop install & reboot)
+```
+sudo systemctl status optimus-manager.service
 ```
 
 
+
+
+<br />
 <br />
 <br />
 
@@ -439,33 +470,18 @@ AMD
 
 ## installing the Display Server
 ```
-pacman -S xorg
+sudo pacman -S xorg
 ```
 
 <br />
 
 ## installing the display manager
 ```
-pacman -S sddm
+sudo pacman -S sddm
 ```
 THEN RUN :: 
 ```
-systemctl enable sddm.service
-```
-
-<br />
-
-## installing (Kde) Desktop
-```
-pacman -S plasma plasma-wayland-session kde-applications 
-```
-installing fonts :: 
-```
-pacman -S ttf-freefont ttf-arphic-uming ttf-baekmuk
-```
-some Applications (up to you)
-```
-pacman -S firefox vim
+sudo systemctl enable sddm.service
 ```
 
 <br />
@@ -482,10 +498,29 @@ THEN update Theme to breeze ::
  Current=breeze
 ```
 
+<br />
+
+## installing (Kde) Desktop
+```
+sudo pacman -S plasma kde-applications xdg-user-dirs 
+```
+installing fonts :: 
+```
+sudo pacman -S ttf-freefont ttf-arphic-uming ttf-baekmuk
+```
+some Applications (up to you)
+```
+sudo pacman -S firefox vim
+```
+
+<br />
+
+
+
 ## for (virtual box) only run 
 ```
-pacman -S virtualbox-guest-utils
-systemctl enable vboxservice.service
+sudo pacman -S virtualbox-guest-utils
+sudo systemctl enable vboxservice.service
 ``` 
 <br />
 
