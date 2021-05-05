@@ -204,7 +204,7 @@ nano /etc/hosts
 THEN add and save
 ```
 127.0.0.1	localhost
-::1		    localhost
+::1		     localhost
 127.0.1.1	<your-hostname>.localdomain	<your-hostname>
 ```
 
